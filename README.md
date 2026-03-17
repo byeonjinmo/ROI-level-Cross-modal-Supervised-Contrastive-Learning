@@ -121,26 +121,3 @@ scikit-learn
 ├── figures/               # Paper figures
 └── README.md
 ```
-
-## Citation
-
-If you find this work useful, please cite:
-
-```bibtex
-@article{byeon2025rcscl,
-  title={ROI-level Cross-modal Supervised Contrastive Learning for Multimodal Depression Risk Prediction with rs-fMRI and T1 MRI},
-  author={Byeon, Jinmo and Yoon, Sujung and Lee, Hwamin},
-  journal={Medical Image Analysis},
-  year={2025}
-}
-```
-
-## Acknowledgements
-
-- [MedicalNet](https://github.com/Tencent/MedicalNet) for pre-trained 3D ResNet weights
-- [Schaefer Atlas](https://github.com/ThomasYeoLab/CBIG) for brain parcellation
-- [SRPBS](https://bicr.atr.jp/srpbs/) for the multi-site open dataset
-
-## License
-
-This project is licensed under the MIT License.
