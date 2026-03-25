@@ -7,7 +7,7 @@ Official implementation of **"ROI-level Cross-modal Supervised Contrastive Learn
 We propose a two-stage multimodal framework incorporating **ROI-aligned Cross-modal Supervised Contrastive Learning (RCSCL)** that jointly leverages resting-state fMRI and T1-weighted MRI for depression-related classification. Using the Schaefer 200 parcellation atlas, anatomically aligned ROI tokens are extracted from both modalities and aligned in a shared embedding space under class-conditional contrastive constraints.
 
 <p align="center">
-  <img src="figures/figure1.png" width="90%" alt="Overall Architecture"/>
+  <img src="figures/figure1.tif" width="90%" alt="Overall Architecture"/>
 </p>
 
 ## Key Contributions
