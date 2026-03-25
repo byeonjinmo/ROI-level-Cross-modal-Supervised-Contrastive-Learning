@@ -39,13 +39,10 @@ The framework consists of two stages:
 
 ## Datasets
 
-| Dataset | Subjects | Patient / Control | Female / Male | Mean Age |
-|---------|----------|-------------------|---------------|----------|
-| In-house (single-center) | 500 | 50 / 450 | 376 / 124 | 40.3 ± 9.5 |
-| SRPBS (multi-site) | 444 | 176 / 268 | 256 / 188 | 44.5 ± 13.4 |
+In-house: Depression high-risk (HDRS ≥ 14) vs. normal controls. 3T MRI, TR = 0.8s. The in-house dataset is available upon reasonable request to the corresponding author.
+SRPBS: MDD vs. healthy controls from 4 institutions. TR = 2.5s. A subset of the SRPBS Multi-disorder MRI Dataset was used, which comprises 3T MRI imaging data from 1,627 participants collected across 12 sites Atr, including rs-fMRI and T1-weighted structural images in NIFTI format. Data are available via the DecNef Project Brain Data Repository (https://bicr-resource.atr.jp/srpbs1600/).
 
-- **In-house**: Depression high-risk (HDRS ≥ 14) vs. normal controls. 3T MRI, TR = 0.8s.
-- **SRPBS**: MDD vs. healthy controls from 4 institutions. TR = 2.5s.
+Reference: Tanaka, S.C., Yamashita, A., Yahata, N. et al. A multi-site, multi-disorder resting-state magnetic resonance image database. Sci Data 8, 227 (2021). https://doi.org/10.1038/s41597-021-01004-8 Atr
 
 ## Results
 
