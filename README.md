@@ -102,22 +102,3 @@ numpy
 scipy
 scikit-learn
 ```
-
-## Project Structure
-
-```
-├── data/                  # Data preprocessing scripts
-├── models/
-│   ├── structural_encoder.py   # MedicalNet-pretrained 3D ResNet-18
-│   ├── functional_encoder.py   # Graph Attention Network
-│   ├── attention_pooling.py    # ROI token aggregation
-│   ├── fusion.py               # Cross-modal self-attention fusion
-│   └── classifier.py           # MLP classifier
-├── losses/
-│   └── rcscl.py                # ROI-aligned cross-modal supervised contrastive loss
-├── train_stage_a.py       # Stage A: Contrastive pre-training
-├── train_stage_b.py       # Stage B: Classification fine-tuning
-├── evaluate.py            # Evaluation and visualization
-├── figures/               # Paper figures
-└── README.md
-```
