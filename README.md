@@ -43,6 +43,8 @@ In-house: Depression high-risk (HDRS ≥ 14) vs. normal controls. 3T MRI, TR = 0
 
 SRPBS: MDD vs. healthy controls from 4 institutions. TR = 2.5s. A subset of the SRPBS Multi-disorder MRI Dataset was used, which comprises 3T MRI imaging data from 1,627 participants collected across 12 sites Atr, including rs-fMRI and T1-weighted structural images in NIFTI format. Data are available via the DecNef Project Brain Data Repository (https://bicr-resource.atr.jp/srpbs1600/). Reference: Tanaka, S.C., Yamashita, A., Yahata, N. et al. A multi-site, multi-disorder resting-state magnetic resonance image database. Sci Data 8, 227 (2021). https://doi.org/10.1038/s41597-021-01004-8 Atr
 
+MedicalNet: Pretrained weights for the 3D ResNet-18 structural encoder. The MedicalNet/Med3D framework provides transferable 3D representations learned from aggregated medical imaging datasets for volumetric medical image analysis. Reference: Chen, S., Ma, K., Zheng, Y. Med3D: Transfer Learning for 3D Medical Image Analysis. arXiv (2019). DOI: 10.48550/arXiv.1904.00625.
+
 ## Results
 
 ### Performance Comparison
