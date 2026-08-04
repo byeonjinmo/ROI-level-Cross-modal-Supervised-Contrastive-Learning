@@ -1,4 +1,4 @@
-# ROI-level Cross-modal Supervised Contrastive Learning for Multimodal Depression Risk Prediction
+# ROI-informed Cross-modal Supervised Contrastive Learning for Multimodal Depression Risk Prediction
 
 Official implementation of **"ROI-level Cross-modal Supervised Contrastive Learning for Multimodal Depression Risk Prediction with rs-fMRI and T1 MRI"** (Medical Image Analysis).
 
