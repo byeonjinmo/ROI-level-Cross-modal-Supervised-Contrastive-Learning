@@ -1,10 +1,10 @@
 # ROI-informed Cross-modal Supervised Contrastive Learning for Multimodal Depression Risk Prediction
 
-Official implementation of **"ROI-level Cross-modal Supervised Contrastive Learning for Multimodal Depression Risk Prediction with rs-fMRI and T1 MRI"** (Medical Image Analysis).
+Official implementation of **"ROI-informed Cross-modal Supervised Contrastive Learning for Multimodal Depression Classification Using rs-fMRI and T1-weighted MRI"** (Medical Image Analysis).
 
 ## Overview
 
-We propose a two-stage multimodal framework incorporating **ROI-aligned Cross-modal Supervised Contrastive Learning (RCSCL)** that jointly leverages resting-state fMRI and T1-weighted MRI for depression-related classification. Using the Schaefer 200 parcellation atlas, anatomically aligned ROI tokens are extracted from both modalities and aligned in a shared embedding space under class-conditional contrastive constraints.
+We propose a two-stage multimodal framework built on **ROI-informed Cross-modal Supervised Contrastive Learning (RCSCL)** that jointly leverages resting-state fMRI and T1-weighted MRI for depression-related classification. ROI tokens are extracted from both modalities under a shared anatomical parcellation (Schaefer 200), aggregated into modality-level embeddings by attention pooling, and aligned in a shared embedding space under class-conditional cross-modal contrastive constraints. The objective does not impose explicit token-to-token ROI correspondence; the cross-modal pair from the same participant is up-weighted (w = 2) relative to same-class pairs from different participants (w = 1).
 
 <p align="center">
   <img src="figures/Figure_1.png" width="90%" alt="Overall Architecture"/>
@@ -12,8 +12,9 @@ We propose a two-stage multimodal framework incorporating **ROI-aligned Cross-mo
 
 ## Key Contributions
 
-- **ROI-aligned cross-modal contrastive learning**: Extracts common ROI tokens from both modalities using the Schaefer 200 atlas and aligns them via class-conditional cross-modal contrastive loss, going beyond global-fusion approaches.
-- **Dual-purpose encoder design**: Structural (3D ResNet-18) and functional (GAT) encoders simultaneously produce ROI-level tokens and global representations, enabling joint optimization of contrastive alignment and classification.
+- **ROI-informed cross-modal contrastive learning**: Extracts ROI tokens from both modalities under a shared atlas, pools them into modality-level embeddings, and aligns them with a class-conditional bidirectional cross-modal contrastive loss that combines subject-level and class-level supervision.
+- **Dual-purpose encoder design**: Structural (3D ResNet-18) and functional (GAT) encoders simultaneously produce ROI tokens and global representations, enabling joint optimization of contrastive alignment and classification.
+- **Fusion-agnostic objective**: RCSCL is applied before fusion, so it improves every fusion backbone evaluated (concatenation, attention, gated, LMF, MISA, MultiViT, ASFF).
 - **Consistent generalization**: Evaluated on two independent datasets (single-center in-house + multi-site SRPBS), with edge-, network-, and ROI-level visualization analyses.
 
 ## Architecture
@@ -49,20 +50,36 @@ MedicalNet: Pretrained weights for the 3D ResNet-18 structural encoder. The Medi
 
 ### Performance Comparison
 
-| Method | In-house AUC | SRPBS AUC |
-|--------|-------------|-----------|
-| GAT (fMRI only) | 0.741 | 0.679 |
-| MedicalNet ResNet (T1 only) | 0.764 | 0.707 |
-| Multimodal Attention | 0.805 | 0.736 |
-| **Attention + RCSCL (Ours)** | **0.855** | **0.766** |
+AUC (mean ± SD) over 5-fold cross-validation.
 
-### Ablation Study
+| Method | In-house (HDRS ≥ 14) | SRPBS (MDD vs HC) |
+|--------|---------------------|-------------------|
+| GAT (rs-fMRI) | 0.661 ± 0.08 | 0.649 ± 0.04 |
+| BrainGNN (rs-fMRI) | 0.724 ± 0.06 | 0.682 ± 0.04 |
+| Brain Network Transformer (rs-fMRI) | 0.741 ± 0.05 | 0.697 ± 0.04 |
+| 3D-ResNet (T1, MedicalNet pretraining) | 0.752 ± 0.03 | 0.710 ± 0.05 |
+| T1 + rs-fMRI (attention) | 0.805 ± 0.04 | 0.736 ± 0.03 |
+| T1 + rs-fMRI (MultiViT) | 0.842 ± 0.06 | 0.758 ± 0.04 |
+| T1 + rs-fMRI (ASFF) | 0.847 ± 0.05 | 0.762 ± 0.03 |
+| **T1 + rs-fMRI + RCSCL (attention)** | **0.855 ± 0.06** | **0.766 ± 0.02** |
+| T1 + rs-fMRI + RCSCL (MultiViT) | 0.858 ± 0.05 | 0.772 ± 0.04 |
+| T1 + rs-fMRI + RCSCL (ASFF) | 0.862 ± 0.05 | 0.775 ± 0.03 |
 
-| Contrastive Strategy | In-house AUC | SRPBS AUC |
-|---------------------|-------------|-----------|
-| No Contrastive | 0.805 | 0.736 |
-| Self-supervised Contrastive | 0.834 | 0.744 |
-| **RCSCL (Ours)** | **0.855** | **0.766** |
+### Fusion-agnostic Effect of RCSCL
+
+RCSCL is applied before fusion, so it can be combined with any fusion backbone.
+With encoders, inputs, splits, and the fusion module held fixed, adding RCSCL
+improves every backbone evaluated (in-house / SRPBS AUC).
+
+| Fusion backbone | w/o RCSCL | + RCSCL |
+|-----------------|-----------|---------|
+| Concatenation | 0.791 / 0.728 | 0.833 / 0.760 |
+| Attention | 0.805 / 0.736 | **0.855 / 0.766** |
+| Gated | 0.774 / 0.731 | 0.845 / 0.755 |
+| LMF | 0.817 / 0.742 | 0.846 / 0.766 |
+| MISA | 0.826 / 0.748 | 0.851 / 0.771 |
+| MultiViT | 0.842 / 0.758 | 0.858 / 0.772 |
+| ASFF | 0.847 / 0.762 | 0.862 / 0.775 |
 
 ## Visualization
 
@@ -84,8 +101,7 @@ Chord diagrams of attention-based edge importance aggregated at functional netwo
 Top-20 ROI importance maps showing class-wise differences in posterior cortical vs. prefrontal-limbic regions.
 
 <p align="center">
-  <img src="figures/figure5.png" width="45%" alt="Feature Importance (In-house)"/>
-  <img src="figures/figure6.png" width="45%" alt="Feature Importance (SRPBS)"/>
+  <img src="figures/figure5.png" width="80%" alt="Top-20 ROI importance maps"/>
 </p>
 
 ## Requirements
